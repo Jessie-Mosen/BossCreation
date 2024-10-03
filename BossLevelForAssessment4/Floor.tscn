@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwtiqoihoxts5"]
+
+[ext_resource type="PackedScene" uid="uid://bcjidnlqj4ph8" path="res://player_icon.tscn" id="1_ytiu4"]
+[ext_resource type="PackedScene" uid="uid://bwrswjin0wevs" path="res://boss.tscn" id="2_kew1p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btfot"]
+size = Vector2(1152, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbxka"]
+size = Vector2(160, 368)
+
+[node name="Level1" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(256, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(320, 528)
+shape = SubResource("RectangleShape2D_btfot")
+
+[node name="Panel" type="Panel" parent="Floor"]
+offset_left = -256.0
+offset_top = 448.0
+offset_right = 896.0
+offset_bottom = 608.0
+
+[node name="LeftSide" type="StaticBody2D" parent="."]
+position = Vector2(256, 32)
+
+[node name="Panel" type="Panel" parent="LeftSide"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+offset_left = -416.0
+offset_top = 96.0
+offset_right = -256.0
+offset_bottom = 448.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftSide"]
+position = Vector2(-336, 280)
+shape = SubResource("RectangleShape2D_cbxka")
+
+[node name="LeftSide2" type="StaticBody2D" parent="."]
+position = Vector2(256, 32)
+
+[node name="Panel" type="Panel" parent="LeftSide2"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 899.0
+offset_top = 81.0
+offset_right = 1059.0
+offset_bottom = 433.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftSide2"]
+position = Vector2(973, 266)
+shape = SubResource("RectangleShape2D_cbxka")
+
+[node name="PlayerIcon" parent="." instance=ExtResource("1_ytiu4")]
+position = Vector2(156, 396)
+
+[node name="Boss" parent="." instance=ExtResource("2_kew1p")]
+position = Vector2(950, 363)

@@ -1,0 +1,122 @@
+[gd_scene load_steps=21 format=3 uid="uid://bwrswjin0wevs"]
+
+[ext_resource type="Texture2D" uid="uid://chr323foctfvx" path="res://AttackSprites/Attack1-removebg-preview.png" id="1_5bomw"]
+[ext_resource type="Script" path="res://boss.gd" id="1_t685r"]
+[ext_resource type="Texture2D" uid="uid://e8pbontmfbnh" path="res://AttackSprites/Attack9-removebg-preview.png" id="2_o8x3p"]
+[ext_resource type="Texture2D" uid="uid://djvv0nsd8habe" path="res://AttackSprites/Attack10-removebg-preview.png" id="3_o1fbb"]
+[ext_resource type="Texture2D" uid="uid://bj3oriseskpiw" path="res://DeathSprites/Die1.png" id="4_cwafk"]
+[ext_resource type="Texture2D" uid="uid://dymsqm5dagfmu" path="res://DeathSprites/Die2.png" id="5_htcju"]
+[ext_resource type="Texture2D" uid="uid://daes1jdxugcqp" path="res://DeathSprites/Die3.png" id="6_roeeu"]
+[ext_resource type="Texture2D" uid="uid://s3b2j75icgq4" path="res://DeathSprites/Die4.png" id="7_ydma0"]
+[ext_resource type="Texture2D" uid="uid://matfdg1n8mio" path="res://DeathSprites/Die5.png" id="8_5gsli"]
+[ext_resource type="Texture2D" uid="uid://dey7sds2o60yu" path="res://IdleSprites/Attack1-removebg-preview.png" id="9_o26ir"]
+[ext_resource type="Texture2D" uid="uid://cetvgjm5rsy18" path="res://RunningSprites/Running1.png" id="10_ssmky"]
+[ext_resource type="Texture2D" uid="uid://dwdyr82ys7ecw" path="res://RunningSprites/Running2.png" id="11_eddpn"]
+[ext_resource type="Texture2D" uid="uid://brnj146fhwkug" path="res://RunningSprites/Running3.png" id="12_sc74d"]
+[ext_resource type="Texture2D" uid="uid://ch172rd4xjx8f" path="res://RunningSprites/Running4.png" id="13_tukw4"]
+[ext_resource type="Texture2D" uid="uid://del2akfmnflhm" path="res://RunningSprites/Running5.png" id="14_11qob"]
+[ext_resource type="Texture2D" uid="uid://dyodkm46ujg1l" path="res://RunningSprites/Running7.png" id="15_y2hhh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jb5d4"]
+radius = 28.0
+height = 84.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_70nbn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5bomw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_o8x3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o1fbb")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cwafk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_htcju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_roeeu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ydma0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5gsli")
+}],
+"loop": true,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_o26ir")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_ssmky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_eddpn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_sc74d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_tukw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_11qob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_y2hhh")
+}],
+"loop": true,
+"name": &"Running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j16yo"]
+radius = 74.7329
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7owab"]
+radius = 346.036
+
+[node name="Boss" type="CharacterBody2D"]
+script = ExtResource("1_t685r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_jb5d4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -39)
+sprite_frames = SubResource("SpriteFrames_70nbn")
+animation = &"Attack"
+
+[node name="MeleeDector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeDector"]
+shape = SubResource("CircleShape2D_j16yo")
+
+[node name="PlayerDection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDection"]
+shape = SubResource("CircleShape2D_7owab")
+
+[connection signal="body_entered" from="MeleeDector" to="." method="_on_melee_dector_body_entered"]
+[connection signal="body_exited" from="MeleeDector" to="." method="_on_melee_dector_body_exited"]
+[connection signal="body_entered" from="PlayerDection" to="." method="_on_player_dection_body_entered"]
+[connection signal="body_exited" from="PlayerDection" to="." method="_on_player_dection_body_exited"]
